@@ -5,11 +5,13 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 
 
-
+# -----------------------------
+# LOAD DATA
+# -----------------------------
 
 data = pd.read_csv("tire_test_data_large.csv")
 
@@ -33,7 +35,9 @@ drive_model = RandomForestClassifier().fit(X, data["drivetire"])
 trailer_model = RandomForestClassifier().fit(X, data["trailertire"])
 
 
-
+# -----------------------------
+# PRESSURE MODEL
+# -----------------------------
 
 pressure_data = pd.read_csv("fleet_tire_dataset_real.csv")
 
@@ -64,16 +68,41 @@ pressure_model = RandomForestRegressor()
 pressure_model.fit(X_pressure, y_pressure)
 
 
-
+# -----------------------------
+# FLASK APP
+# -----------------------------
 
 app = Flask(__name__)
 CORS(app)
 
 
+# Serve frontend
 @app.route("/")
 def home():
-    return "Truck Tire Optimization API Running"
+    return send_from_directory(".", "index.html")
 
+
+# Serve CSS
+@app.route("/styles.css")
+def styles():
+    return send_from_directory(".", "styles.css")
+
+
+# Serve JS
+@app.route("/script.js")
+def script():
+    return send_from_directory(".", "script.js")
+
+
+# Serve images/files automatically
+@app.route('/<path:path>')
+def static_files(path):
+    return send_from_directory('.', path)
+
+
+# -----------------------------
+# PREDICTION API
+# -----------------------------
 
 @app.route("/predict", methods=["POST"])
 def predict():
@@ -90,22 +119,18 @@ def predict():
     tire_age = float(req["tireAge"])
     wear = req["wearLevel"]
 
-
     road_enc = le_road.transform([roadtype])[0]
     climate_enc = le_climate.transform([climate])[0]
     wear_enc = le_wear.transform([wear])[0]
 
-    
     X_input = np.array([[road_enc, loadkg, axles, climate_enc]])
 
     steer = le_steer.inverse_transform(steer_model.predict(X_input))[0]
     drive = le_drive.inverse_transform(drive_model.predict(X_input))[0]
     trailer = le_trailer.inverse_transform(trailer_model.predict(X_input))[0]
 
-    
     load_per_axle = loadkg / axles
 
-    
     pressure_input = np.array([[
         road_enc,
         loadkg,
@@ -120,7 +145,6 @@ def predict():
 
     pressure = pressure_model.predict(pressure_input)[0]
 
-    
     if wear == "high" or tire_age > 3:
         failureRisk = "HIGH"
 
@@ -130,7 +154,6 @@ def predict():
     else:
         failureRisk = "LOW"
 
-    
     if failureRisk == "HIGH":
         advice = "Replace tire immediately"
 
@@ -140,7 +163,6 @@ def predict():
     else:
         advice = "Tire condition safe"
 
-    
     return jsonify({
         "steerTire": steer,
         "driveTire": drive,
@@ -150,8 +172,6 @@ def predict():
         "loadPerAxle": round(load_per_axle, 2),
         "safetyAdvice": advice
     })
-
-
 
 
 if __name__ == "__main__":
