@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Truck Fleet Tire Optimization</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+
+<body class="bg-gray-100">
+
+
+
+
+<section class="hero">
+
+<div class="hero-overlay">
+
+<h1>AI Truck Fleet Tire Optimization</h1>
+
+<p>
+Predict optimal tire pressure and detect potential tire failure risks using Machine Learning.
+</p>
+
+<a href="#predict" class="hero-btn">
+Start Prediction
+</a>
+
+</div>
+
+</section>
+
+
+
+
+<section class="info-section">
+
+<h2>Why Tire Optimization is Important</h2>
+
+<div class="info-grid">
+
+<div class="info-card">
+
+<h3>🚚 Fleet Safety</h3>
+
+<p>
+Incorrect tire pressure is one of the leading causes of truck accidents worldwide.  
+Proper tire pressure ensures stability, braking efficiency and safer transportation.
+</p>
+
+</div>
+
+
+<div class="info-card">
+
+<h3>⛽ Fuel Efficiency</h3>
+
+<p>
+Underinflated tires increase rolling resistance which leads to higher fuel consumption.  
+Optimized tire pressure can improve fuel efficiency by up to 5%.
+</p>
+
+</div>
+
+
+<div class="info-card">
+
+<h3>💰 Reduced Maintenance</h3>
+
+<p>
+Monitoring tire wear and pressure prevents early tire damage and reduces fleet maintenance costs.
+</p>
+
+</div>
+
+
+<div class="info-card">
+
+<h3>🤖 AI Driven Monitoring</h3>
+
+<p>
+Using Machine Learning models allows fleet managers to predict tire risks and optimize operations automatically.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+<section id="predict" class="predict-section">
+
+<h2>Enter Truck Details</h2>
+
+<form id="tireForm">
+
+<select id="roadType" class="input-box">
+<option value="">Select Road Type</option>
+<option value="highway">Highway</option>
+<option value="urban">Urban</option>
+<option value="mountain">Mountain</option>
+</select>
+
+<input id="loadKg" type="number" placeholder="Load (kg)" class="input-box">
+
+
+<select id="axles" class="input-box">
+<option value="">Select Axles</option>
+<option value="2">2 Axles</option>
+<option value="3">3 Axles</option>
+<option value="4">4 Axles</option>
+<option value="5">5 Axles</option>
+<option value="6">6 Axles</option>
+</select>
+
+
+<select id="climate" class="input-box">
+<option value="">Select Climate</option>
+<option value="dry">Dry</option>
+<option value="rainy">Rainy</option>
+<option value="cold">Cold</option>
+</select>
+
+
+<input id="temperature" type="number" placeholder="Temperature °C" class="input-box">
+
+<input id="speed" type="number" placeholder="Average Speed km/h" class="input-box">
+
+
+<select id="tireAge" class="input-box">
+<option value="">Select Tire Age</option>
+<option value="1">1 Year</option>
+<option value="2">2 Years</option>
+<option value="3">3 Years</option>
+<option value="4">4 Years</option>
+<option value="5">5 Years</option>
+</select>
+
+
+<select id="wearLevel" class="input-box">
+<option value="">Select Wear Level</option>
+<option value="low">Low</option>
+<option value="medium">Medium</option>
+<option value="high">High</option>
+</select>
+
+
+<div class="button-row">
+<button class="predict-btn">
+Predict Tire Optimization
+</button>
+</div>
+
+</form>
+
+</section>
+
+
+
+
+
+<section id="resultSection" class="hidden result-section">
+
+<h2>Prediction Results</h2>
+
+<div class="dashboard">
+
+
+<div class="card">
+
+<h3>Steer Tire</h3>
+
+<p id="steerTire"></p>
+
+<img src="download.webp">
+
+</div>
+
+
+<div class="card">
+
+<h3>Drive Tire</h3>
+
+<p id="driveTire"></p>
+
+<img src="OIP (1).webp">
+
+</div>
+
+
+<div class="card">
+
+<h3>Trailer Tire</h3>
+
+<p id="trailerTire"></p>
+
+<img src="OIP.webp">
+
+</div>
+
+
+<div class="card pressure">
+
+<h3>Recommended Pressure</h3>
+
+<p id="pressureValue"></p>
+
+<img src="https://cdn-icons-png.flaticon.com/512/481/481113.png">
+
+</div>
+
+
+<div class="card">
+
+<h3>Failure Risk</h3>
+
+<p id="failureRisk"></p>
+
+<img src="https://cdn-icons-png.flaticon.com/512/564/564619.png">
+
+</div>
+
+
+<div class="card">
+
+<h3>Load Per Axle</h3>
+
+<p id="loadPerAxle"></p>
+
+<img src="download2.jpg">
+
+</div>
+
+
+<div class="card">
+
+<h3>Safety Advice</h3>
+
+<p id="safetyAdvice"></p>
+
+<img src="https://cdn-icons-png.flaticon.com/512/190/190411.png">
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+
+
+<footer class="footer">
+
+<h2>Road Safety Statistics (India)</h2>
+
+<div class="stats-grid">
+
+<div class="stat-card">
+
+<h3>🚧 Daily Accidents</h3>
+
+<p>Over <b>1,264 road accidents</b> occur every day in India.</p>
+
+</div>
+
+<div class="stat-card">
+
+<h3>💀 Daily Fatalities</h3>
+
+<p>Nearly <b>426 deaths</b> happen every day due to road accidents.</p>
+
+</div>
+
+<div class="stat-card">
+
+<h3>🚚 Heavy Vehicle Risk</h3>
+
+<p>Trucks contribute to a significant percentage of highway accidents due to tire failures.</p>
+
+</div>
+
+<div class="stat-card">
+
+<h3>⚠ Tire Failure</h3>
+
+<p>Improper tire pressure is one of the major causes of truck breakdowns and accidents.</p>
+
+</div>
+
+</div>
+
+<p class="footer-note">
+AI based tire monitoring systems can significantly reduce accidents and improve fleet safety.
+</p>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
